@@ -98,3 +98,36 @@ To initialize the database environment, the raw SQL definitions are available in
 ## 🔄 Python Batch Program (Cron)
 
 The synchronization script runs as a periodic batch job using `cron`. It fetches modified objects from the **SENAITE JSON API** and writes them transactionally to MySQL.
+
+---
+
+## 🚀 Deployment & Automation (Cron Job)
+
+To run this synchronization process securely without leaks, configure your sensitive access tokens via environment variables.
+
+### 1. Environment Variable Setup
+Create a file on your server environment (e.g., `/etc/environment` or your user profile) containing the secret keys:
+
+```bash
+export SENAITE_URL="http://your-senaite-server:8080/senaite"
+export SENAITE_USER="your_senaite_admin_user"
+export SENAITE_PASSWORD="your_super_secret_senaite_password"
+
+export DB_HOST="localhost"
+export DB_NAME="senaite_db"
+export DB_USER="senaite_mysql_user"
+export DB_PASSWORD="your_super_secret_mysql_password"
+```
+
+### 2. Automating with Cron
+To schedule this script to run automatically every hour, open your system crontab configurations:
+
+```bash
+crontab -e
+```
+
+Add the following command at the bottom of the file (adjusting paths to match your script and Python environment directory execution):
+
+```text
+0 * * * * . /etc/environment; /usr/bin/python3 /path/to/your/repo/sync.py >> /var/log/senaite_sync.log 2>&1
+```
