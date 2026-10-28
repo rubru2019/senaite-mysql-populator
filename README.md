@@ -1,7 +1,7 @@
-# senaite-mysql-populator
-Batch script to populate a MySQL database from SENAITE data for Metabase reporting.
+<!-- # senaite-mysql-populator
+Batch script to populate a MySQL database from SENAITE data for Metabase reporting. -->
 
-# SENAITE MySQL Addon & Metabase Reporting
+# SENAITE MySQL Populator & Metabase Report
 
 This project provides an automated data pipeline (Python batch script) to synchronize laboratory data from **SENAITE LIMS** into a relational **MySQL database**. This layout enables advanced analytics, business intelligence, and dashboarding within **Metabase**.
 
