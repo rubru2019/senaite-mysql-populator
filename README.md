@@ -131,3 +131,33 @@ Add the following command at the bottom of the file (adjusting paths to match yo
 ```text
 0 * * * * . /etc/environment; /usr/bin/python3 /path/to/your/repo/sync.py >> /var/log/senaite_sync.log 2>&1
 ```
+
+---
+
+## 📊 Metabase Reporting Examples
+
+Here are two basic SQL examples to kickstart your Metabase dashboards using this synchronized data model:
+
+### 1. Sample Distribution by Workflow State (Bar Chart)
+Shows the total volume of samples currently sitting in each SENAITE lifecycle stage (e.g., due, received, verified, published).
+
+```sql
+SELECT 
+    review_state AS "Status", 
+    COUNT(uid) AS "Total Samples"
+FROM samples
+GROUP BY review_state
+ORDER BY "Total Samples" DESC;
+```
+
+### 2. Monthly Intake of Analysis Requests (Line Chart / KPI)
+Tracks the volume of new laboratory analysis requests submitted over time, aggregated by month.
+
+```sql
+SELECT 
+    DATE_FORMAT(date_requested, '%Y-%m') AS "Month",
+    COUNT(uid) AS "Number of Requests"
+FROM analysis_requests
+GROUP BY DATE_FORMAT(date_requested, '%Y-%m')
+ORDER BY "Month" ASC;
+```
